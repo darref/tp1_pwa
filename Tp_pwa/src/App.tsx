@@ -1,9 +1,9 @@
 // App.js
-import React from 'react';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './Home.tsx';
-import Game from './Game.tsx';
-import End from './End.tsx';
+import Home from './Home';
+import Game from './Game';
+import End from './End';
 
 function App() {
   return (
