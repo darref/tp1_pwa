@@ -9,6 +9,12 @@ function getRandomPosition() {
   return { x, y };
 }
 
+let gamePaused: boolean = false;
+
+function togglePauseGame() : void{
+  gamePaused = !gamePaused;
+}
+
 function Game() {
   const [counter, setCounter] = useState(0);
   const [position, setPosition] = useState(getRandomPosition());
@@ -17,13 +23,18 @@ function Game() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime((prevTime) => prevTime + 0.1);
+      if(!gamePaused)
+        setTime((prevTime) => {
+          localStorage.setItem("gameTime" , String(prevTime + 0.1));
+          return prevTime + 0.1;
+        });
     }, 100);
 
     return () => clearInterval(interval);
   }, []);
 
   const handleClick = () => {
+    if(gamePaused) return;
     setCounter((prevCounter) => prevCounter + 1);
     setPosition(getRandomPosition());
 
@@ -41,6 +52,9 @@ function Game() {
       <div style={{ position: 'absolute', bottom: 10, right: 10, color: 'white' }}>
         Time: {time.toFixed(3)} sec
       </div>
+      <button style={{ position: 'absolute', bottom: 10, left: 10, color: 'white' }} onClick={togglePauseGame}>
+        Game state: {gamePaused? "paused" : "running"}
+      </button>
     </div>
   );
 }
