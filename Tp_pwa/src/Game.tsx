@@ -36,6 +36,10 @@ function Game() {
   const handleClick = () => {
     if(gamePaused) return;
     setCounter((prevCounter) => prevCounter + 1);
+    // Dans le gestionnaire de clic sur la div
+    const audio = new Audio("piece.wav");
+    audio.play();
+
     setPosition(getRandomPosition());
 
     if (counter === 9) {
