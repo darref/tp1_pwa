@@ -1,5 +1,5 @@
 // Importez les hooks nécessaires de React
-import React, { useState } from 'react';
+import  { useState } from 'react';
 
 function FullScreenButton() {
   const [isFullScreen, setFullScreen] = useState(false);
