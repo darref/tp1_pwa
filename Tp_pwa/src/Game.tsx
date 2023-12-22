@@ -12,11 +12,9 @@ function getRandomPosition() {
   return { x, y };
 }
 
-let gamePaused: boolean = false;
 
-function togglePauseGame() : void{
-  gamePaused = !gamePaused;
-}
+
+
 
 // Initialise le localStorage avec un tableau vide 
 localStorage.setItem("scoresHistory", JSON.stringify([]));
@@ -27,7 +25,12 @@ function Game() {
   const [position, setPosition] = useState(getRandomPosition());
   const [time, setTime] = useState(0);
   const [country, setCountry] = useState("");
+  const [gamePaused, setGamePaused] = useState(false);
   const navigate = useNavigate();
+
+  function togglePauseGame() : void{
+    setGamePaused(!gamePaused);
+  }
 
   const getCountry = async () => {
     try {
@@ -133,7 +136,7 @@ function Game() {
         Time: {time.toFixed(3)} sec
       </div>
       <button style={{ position: 'absolute', bottom: 10, left: 10, color: 'black' }} onClick={togglePauseGame}>
-        Game state: {gamePaused? "paused" : "running"}
+        Game state: {gamePaused ? "paused" : "running"}
       </button>
       
       <div style={{ position: 'absolute', top: 10, left: 10, color: 'white'  , width: "20%"}}>
@@ -141,11 +144,11 @@ function Game() {
       </div>
       <FullScreenButton ></FullScreenButton>
 
-      <button onClick={handleShare} style={{ position: 'absolute', bottom: 10, left: "50%", color: 'black'  , width: "20%"}}>
+      <button onClick={handleShare} style={{ position: 'absolute', bottom: 10, left: "50%", color: 'black'  , width: "100px"}}>
         Partager
       </button>
 
-      <button onClick={handleInstall} style={{ position: 'absolute', bottom: "50%", left: 10, color: 'black'  , width: "20%"}}>
+      <button onClick={handleInstall} style={{ position: 'absolute', bottom: "50%", left: 10, color: 'black'  , width: "100px"}}>
         Installer
       </button>
     </div>
