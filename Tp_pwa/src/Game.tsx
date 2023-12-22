@@ -3,6 +3,8 @@ import  { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Game.css"
 
+const audio = new Audio("piece.wav");
+
 function getRandomPosition() {
   const x = (Math.random() * 100).toString() + "%";
   const y = (Math.random() * 100).toString() + "%";
@@ -37,8 +39,10 @@ function Game() {
     if(gamePaused) return;
     setCounter((prevCounter) => prevCounter + 1);
     // Dans le gestionnaire de clic sur la div
-    const audio = new Audio("piece.wav");
+    audio.pause();
+    audio.currentTime = 0;
     audio.play();
+    window.navigator.vibrate(200);
 
     setPosition(getRandomPosition());
 
@@ -56,7 +60,7 @@ function Game() {
       <div style={{ position: 'absolute', bottom: 10, right: 10, color: 'white' }}>
         Time: {time.toFixed(3)} sec
       </div>
-      <button style={{ position: 'absolute', bottom: 10, left: 10, color: 'white' }} onClick={togglePauseGame}>
+      <button style={{ position: 'absolute', bottom: 10, left: 10, color: 'black' }} onClick={togglePauseGame}>
         Game state: {gamePaused? "paused" : "running"}
       </button>
     </div>
